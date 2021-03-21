@@ -110,6 +110,23 @@ app.put("/api/v1/users/:id", (req, res) => {
   db.close();
 });
 
+// Delete user data
+app.delete("/api/v1/users/:id", (req, res) => {
+  // Connect database
+  const db = new sqlite3.Database(dbPath);
+
+  const id = req.params.id;
+
+  run(
+    `DELETE FROM users WHERE id=${id}`,
+    db,
+    res,
+    "ユーザー情報を削除しました！"
+  );
+
+  db.close();
+});
+
 const port = 3000;
 app.listen(port);
 console.log(`Listen on port: ${port}`);
